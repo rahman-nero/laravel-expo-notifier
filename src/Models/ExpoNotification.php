@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class ExpoNotification extends Model
 {
     protected $guarded = ['id'];
+    
+    protected $connection = 'flex_expo_notification';
 }
