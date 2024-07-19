@@ -1,5 +1,5 @@
 {
-  "name": "yieldstudio/laravel-expo-notifier",
+  "name": "nero/laravel-expo-notifier",
   "description": "Easily send Expo notifications with Laravel.",
   "type": "plugin",
   "keywords": [
