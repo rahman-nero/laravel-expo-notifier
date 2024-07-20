@@ -10,7 +10,7 @@ Easily manage Expo notifications with Laravel. Support batched notifications.
 
 ## Installation
 
-	composer require yieldstudio/laravel-expo-notifier
+	composer require nero/laravel-expo-notifier
 
 ## Configure
 
