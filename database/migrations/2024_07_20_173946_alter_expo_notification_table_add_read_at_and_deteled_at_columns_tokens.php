@@ -10,15 +10,30 @@ return new class() extends Migration
 {
     public function up(): void
     {
-        Schema::table('expo_tokens', function (Blueprint $table) {
-            $table->unique(['value', 'owner_type', 'owner_id']);
+        Schema::table(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
+            $table->foreignId('expo_token_id')
+                ->nullable()
+                ->after('id')
+                ->constrained();
+
+            $table->after('value', function (Blueprint $table) {
+                $table->dateTime('sent_at')
+                    ->comment('Отправлено')
+                    ->nullable();
+
+                $table->dateTime('read_at')
+                    ->comment('Прочитано')
+                    ->nullable();
+            });
+
+            $table->softDeletes()->after('updated_at');
         });
     }
 
     public function down(): void
     {
-        Schema::table('expo_tokens', function (Blueprint $table) {
-            $table->dropUnique(['value', 'owner_type', 'owner_id']);
+        Schema::table(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
+            $table->dropColumn(['read_at', 'deleted_at']);
         });
     }
 };

@@ -16,6 +16,8 @@ use Illuminate\Contracts\Support\Jsonable;
  */
 final class ExpoMessage implements Arrayable, Jsonable
 {
+    public ?int $expoTokenId;
+
     public array $to;
 
     public ?string $title = null;
@@ -48,6 +50,13 @@ final class ExpoMessage implements Arrayable, Jsonable
     public static function create(): ExpoMessage
     {
         return new ExpoMessage();
+    }
+
+    public function expoTokenId(?int $expoToken): self
+    {
+        $this->expoTokenId = $expoToken;
+
+        return $this;
     }
 
     public function to(?array $value): self

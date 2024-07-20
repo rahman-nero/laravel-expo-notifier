@@ -15,6 +15,7 @@ class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStor
     public function store(ExpoMessage $expoMessage): ExpoNotificationDto
     {
         $notification = ExpoNotification::create([
+            'expo_token_id' => $expoMessage->expoTokenId ?? null,
             'data' => $expoMessage->toJson(),
         ]);
 
@@ -24,6 +25,7 @@ class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStor
     public function retrieve(int $amount = 100): Collection
     {
         return ExpoNotification::query()
+            ->whereNull('sent_at')
             ->take($amount)
             ->get()
             ->map(function ($notification) {
@@ -36,8 +38,29 @@ class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStor
         ExpoNotification::query()->whereIn('id', $ids)->delete();
     }
 
+    public function forceDelete(array $ids): void
+    {
+        ExpoNotification::query()->whereIn('id', $ids)->forceDelete();
+    }
+
+    public function sent(array $ids): void
+    {
+        ExpoNotification::query()->whereIn('id', $ids)->update([
+            'sent_at' => now()->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    public function read(array $ids): void
+    {
+        ExpoNotification::query()->whereIn('id', $ids)->update([
+            'read_at' => now()->format('Y-m-d H:i:s'),
+        ]);
+    }
+
     public function count(): int
     {
-        return ExpoNotification::query()->count();
+        return ExpoNotification::query()
+            ->whereNull('sent_at')
+            ->count();
     }
 }

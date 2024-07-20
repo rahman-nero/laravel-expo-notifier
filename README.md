@@ -46,6 +46,7 @@ class NewSampleNotification extends Notification
     public function toExpoNotification($notifiable): ExpoMessage
     {
         return (new ExpoMessage())
+            ->expoTokenId($notifiable->expoTokens->id)
             ->to([$notifiable->expoTokens->value])
             ->title('A beautiful title')
             ->body('This is a content')
@@ -73,6 +74,7 @@ You may create schedules to execute these commands.
 You can send notification in the next batch : 
 ```php
 (new ExpoMessage())
+    ->expoTokenId($notifiable->expoTokens->id)
     ->to([$notifiable->expoTokens->value])
     ->title('A beautiful title')
     ->body('This is a content')

@@ -39,7 +39,7 @@ class SendPendingNotifications
             $expoNotificationsService->notify($expoMessages);
 
             $sent = $sent->merge($ids);
-            $expoNotification->delete($ids->toArray());
+            $expoNotification->sent($ids->toArray());
         }
     }
 }

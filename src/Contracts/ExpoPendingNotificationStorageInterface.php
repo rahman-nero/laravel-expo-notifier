@@ -19,5 +19,11 @@ interface ExpoPendingNotificationStorageInterface
 
     public function delete(array $ids): void;
 
+    public function forceDelete(array $ids): void;
+
+    public function read(array $ids): void;
+
+    public function sent(array $ids): void;
+
     public function count(): int;
 }
