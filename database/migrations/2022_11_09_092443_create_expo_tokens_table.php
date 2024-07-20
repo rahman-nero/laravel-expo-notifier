@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create(config('expo-notifications.database.tokens_table_name', 'expo_tokens'), function (Blueprint $table) {
@@ -23,5 +22,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists(config('expo-notifications.database.tokens_table_name', 'expo_tokens'));
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getConnection(): ?string
+    {
+        return config('expo-notifications.database.connection', 'default');
     }
 };

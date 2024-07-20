@@ -10,8 +10,12 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class ExpoToken extends Model
 {
     protected $guarded = ['id'];
-    
-    protected $connection = 'flex_expo_notification';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->setConnection(config('expo-notifications.database.connection', 'default'));
+    }
 
     public function owner(): MorphTo
     {

@@ -18,6 +18,7 @@ return [
         'notification' => ExpoPendingNotificationStorageMysql::class,
     ],
     'database' => [
+        'connection' => 'default',
         'tokens_table_name' => 'expo_tokens',
         'tickets_table_name' => 'expo_tickets',
         'notifications_table_name' => 'expo_notifications',

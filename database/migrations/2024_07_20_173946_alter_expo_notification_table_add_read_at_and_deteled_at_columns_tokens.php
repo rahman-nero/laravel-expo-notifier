@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class() extends Migration
-{
+return new class() extends Migration {
     public function up(): void
     {
         Schema::table(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
@@ -33,7 +32,15 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
-            $table->dropColumn(['read_at', 'deleted_at']);
+            $table->dropColumn(['read_at', 'sent_at', 'deleted_at']);
         });
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getConnection(): ?string
+    {
+        return config('expo-notifications.database.connection', 'default');
     }
 };

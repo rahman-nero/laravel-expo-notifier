@@ -11,8 +11,12 @@ class ExpoTicket extends Model
 {
     protected $guarded = ['id'];
     
-    protected $connection = 'flex_expo_notification';
-    
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->setConnection(config('expo-notifications.database.connection', 'default'));
+    }
+
     public function notification(): BelongsTo
     {
         return $this->belongsTo(ExpoNotification::class);

@@ -21,4 +21,12 @@ return new class() extends Migration
             $table->dropUnique(['value', 'owner_type', 'owner_id']);
         });
     }
+
+    /**
+     * @return string|null
+     */
+    public function getConnection(): ?string
+    {
+        return config('expo-notifications.database.connection', 'default');
+    }
 };

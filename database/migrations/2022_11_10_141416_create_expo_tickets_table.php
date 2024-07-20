@@ -24,4 +24,12 @@ return new class extends Migration
     {
         Schema::dropIfExists(config('expo-notifications.database.tickets_table_name', 'expo_tickets'));
     }
+
+    /**
+     * @return string|null
+     */
+    public function getConnection(): ?string
+    {
+        return config('expo-notifications.database.connection', 'default');
+    }
 };
