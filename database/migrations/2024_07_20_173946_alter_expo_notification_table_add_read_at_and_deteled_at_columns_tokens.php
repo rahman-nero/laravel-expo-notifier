@@ -15,7 +15,7 @@ return new class() extends Migration {
                 ->after('id')
                 ->constrained();
 
-            $table->after('value', function (Blueprint $table) {
+            $table->after('data', function (Blueprint $table) {
                 $table->dateTime('sent_at')
                     ->comment('Отправлено')
                     ->nullable();
